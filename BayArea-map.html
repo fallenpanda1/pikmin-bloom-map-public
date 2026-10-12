@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_30600691a2f6eade8d62ea674797c2c4 {
+                #map_1cb7e3eb2ce93e9131538890165efcc4 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -699,15 +699,10 @@ window.addEventListener('load', function() {
     
 <script>
 window.autoLocate = function() {
-    var lc = window['locate_control_5c205e83a44f07f0cfd92e7f272ae456'];
+    var lc = window['locate_control_797c1d049412d47923b6da8001dd2d86'];
     var opts = lc.options;
-    var keepZoom = opts.keepCurrentZoomLevel;
     var onError = opts.onLocationError;
-    function restore() {
-        opts.keepCurrentZoomLevel = keepZoom;
-        opts.onLocationError = onError;
-    }
-    opts.keepCurrentZoomLevel = false;
+    function restore() { opts.onLocationError = onError; }
     opts.onLocationError = function() { restore(); lc.stop(); };
     lc._map.once('locationfound', restore);
     lc.start();
@@ -715,18 +710,24 @@ window.autoLocate = function() {
 window.addEventListener('load', function() {
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if (isIOS) window.autoLocate();
+    if (isIOS) {
+        window.autoLocate();
+    } else if (navigator.permissions) {
+        navigator.permissions.query({name: 'geolocation'}).then(function(p) {
+            if (p.state === 'granted') window.autoLocate();
+        }).catch(function() {});
+    }
 });
 </script>
     
-            <div class="folium-map" id="map_30600691a2f6eade8d62ea674797c2c4" ></div>
+            <div class="folium-map" id="map_1cb7e3eb2ce93e9131538890165efcc4" ></div>
         
 </body>
 <script>
     
     
-            var map_30600691a2f6eade8d62ea674797c2c4 = L.map(
-                "map_30600691a2f6eade8d62ea674797c2c4",
+            var map_1cb7e3eb2ce93e9131538890165efcc4 = L.map(
+                "map_1cb7e3eb2ce93e9131538890165efcc4",
                 {
                     center: [37.55, -122.13499999999999],
                     crs: L.CRS.EPSG3857,
@@ -743,7 +744,7 @@ window.addEventListener('load', function() {
 
         
     
-            var tile_layer_c2c3950254a3805ad296b1e1beb312ce = L.tileLayer(
+            var tile_layer_4eca3fcefbe37f86e809b58547a7864f = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -760,42 +761,42 @@ window.addEventListener('load', function() {
             );
         
     
-            tile_layer_c2c3950254a3805ad296b1e1beb312ce.addTo(map_30600691a2f6eade8d62ea674797c2c4);
+            tile_layer_4eca3fcefbe37f86e809b58547a7864f.addTo(map_1cb7e3eb2ce93e9131538890165efcc4);
         
     
-            var rectangle_fc770b8d86e74736ea7e2b936b1fc0c6 = L.rectangle(
+            var rectangle_6d3089a0b4e6c91dc803c1266ebeab53 = L.rectangle(
                 [[37.2, -122.52], [37.9, -121.75]],
                 {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.05, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
-            ).addTo(map_30600691a2f6eade8d62ea674797c2c4);
+            ).addTo(map_1cb7e3eb2ce93e9131538890165efcc4);
         
     
-            map_30600691a2f6eade8d62ea674797c2c4.fitBounds(
+            map_1cb7e3eb2ce93e9131538890165efcc4.fitBounds(
                 [[37.2, -122.52], [37.9, -121.75]],
                 {}
             );
         
     
-            var pane_c4e55593979a5ba783ab7053623c550f = map_30600691a2f6eade8d62ea674797c2c4.createPane(
+            var pane_2573212127ed8dca04c871ab488ca7ef = map_1cb7e3eb2ce93e9131538890165efcc4.createPane(
                 "locationPane");
-            pane_c4e55593979a5ba783ab7053623c550f.style.zIndex = 640;
+            pane_2573212127ed8dca04c871ab488ca7ef.style.zIndex = 640;
             
-                pane_c4e55593979a5ba783ab7053623c550f.style.pointerEvents = 'none';
-            
-        
-    
-            var locate_control_5c205e83a44f07f0cfd92e7f272ae456 = L.control.locate(
-                {"compassStyle": {"interactive": false, "pane": "locationPane"}, "flyTo": true, "keepCurrentZoomLevel": true, "locateOptions": {"enableHighAccuracy": true, "maxZoom": 17}, "markerStyle": {"interactive": false, "pane": "locationPane"}, "setView": "untilPanOrZoom", "showPopup": false, "strings": {"title": "Show my location"}}
-            ).addTo(map_30600691a2f6eade8d62ea674797c2c4);
+                pane_2573212127ed8dca04c871ab488ca7ef.style.pointerEvents = 'none';
             
         
     
-            var marker_cluster_48b461d684df59c4f504e0a9bcd400d3 = L.markerClusterGroup(
+            var locate_control_797c1d049412d47923b6da8001dd2d86 = L.control.locate(
+                {"clickBehavior": {"inView": "setView", "inViewNotFollowing": "setView", "outOfView": "setView"}, "compassStyle": {"interactive": false, "pane": "locationPane"}, "flyTo": true, "keepCurrentZoomLevel": true, "locateOptions": {"enableHighAccuracy": true, "maxZoom": 17}, "markerStyle": {"interactive": false, "pane": "locationPane"}, "setView": "once", "showPopup": false, "strings": {"title": "Show my location"}}
+            ).addTo(map_1cb7e3eb2ce93e9131538890165efcc4);
+            
+        
+    
+            var marker_cluster_28e618497d05de448e58af30c0234694 = L.markerClusterGroup(
                 {
 }
             );
         
     
-            marker_cluster_48b461d684df59c4f504e0a9bcd400d3.addTo(map_30600691a2f6eade8d62ea674797c2c4);
+            marker_cluster_28e618497d05de448e58af30c0234694.addTo(map_1cb7e3eb2ce93e9131538890165efcc4);
         
 </script>
 </html>
